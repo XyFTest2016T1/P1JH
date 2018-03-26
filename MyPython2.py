@@ -326,7 +326,7 @@ def main():
 	rop = args[2]
 	con= args[3]
 	inl = args[4]
-    	gdx_name = 'case14.gdx'
+    	gdx_name = 'case.gdx'
 	gms_name = 'run_greedy.gms'
 	
 	sol1_name = 'solution1.txt'
