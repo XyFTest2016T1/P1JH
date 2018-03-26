@@ -10,7 +10,6 @@ GAMS_DIR = '../../'
 '''
 
 import gams, os, sys
-sys.path.append(os.path.normpath(EVAL_DIR + 'src/'))
 print sys.path
 import psse, gams_utils
 
@@ -315,11 +314,8 @@ def main():
 	
 	args = sys.args
 
-	#global DATA_DIR
-	global EVAL_DIR
 	global GAMS_DIR
 	
-	EVAL_DIR="."
 	GAMS_DIR = 'gams/'
 	
 	raw = args[1]
