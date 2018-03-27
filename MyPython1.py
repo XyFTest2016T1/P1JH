@@ -44,7 +44,7 @@ def test(raw_name=None, rop_name=None, inl_name=None, con_name=None, sol1_name=N
     ws = gams.GamsWorkspace()
     #ws.__init__(working_directory=os.getcwd())
     ws.__init__(working_directory=(os.path.normpath(GAMS_DIR)))
-    job = ws.add_job_from_file(gms_name)
+    job = ws.add_job_from_file(os.path.normpath(gms_name))
     opt = gams.GamsOptions(ws)
     opt.defines['ingdx'] = os.path.normpath(gdx_name)
     opt.defines['solution1'] = os.path.normpath(sol1_name)
@@ -75,7 +75,7 @@ def main():
 	raw = args[3]
 	rop = args[4]
     	gdx = GAMS_DIR + 'case.gdx'
-	gms = GAMS_DIR + 'run_greedy.gms'
+	gms = 'run_greedy.gms'
 	
 	sol1_name = 'solution1.txt'
 	sol2_name = 'solution2.txt'
