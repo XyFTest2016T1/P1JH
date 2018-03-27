@@ -77,8 +77,8 @@ def main():
     	gdx = 'case.gdx'
 	gms = 'run_greedy.gms'
 	
-	sol1_name = 'solution1.txt'
-	sol2_name = 'solution2.txt'
+	sol1_name = '../solution1.txt'
+	sol2_name = '../solution2.txt'
 	
 	print("raw: " + raw)
 	print("rop: " + rop)
