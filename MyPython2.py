@@ -70,10 +70,10 @@ def main():
 	global GAMS_DIR
 	GAMS_DIR = 'gams/'
 	
-	con = args[0]
-	inl = args[1]
-	raw = args[2]
-	rop = args[3]
+	con = args[1]
+	inl = args[2]
+	raw = args[3]
+	rop = args[4]
     	gdx = GAMS_DIR + 'case.gdx'
 	gms = GAMS_DIR + 'run_greedy.gms'
 	
