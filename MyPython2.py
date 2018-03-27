@@ -65,7 +65,7 @@ def test(raw_name=None, rop_name=None, inl_name=None, con_name=None, sol1_name=N
 def main():
 	import sys
 	
-	args = sys.args
+	args = sys.argv
 
 	global GAMS_DIR
 	
