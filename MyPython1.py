@@ -80,7 +80,7 @@ def main():
 	sol1_name = 'solution1.txt'
 	sol2_name = 'solution2.txt'
 
-    	test(raw,rop,inl,con,sol1_name,sol2_name,gams_dir + gdx_name,gams_dir + gms_name)
+    	test(raw,rop,inl,con,sol1_name,sol2_name,GAMS_DIR + gdx_name,GAMS_DIR + gms_name)
 
 if __name__ == '__main__':
 	main()
