@@ -37,7 +37,7 @@ def test(raw_name=None, rop_name=None, inl_name=None, con_name=None, sol1_name=N
 
     # write to gdx
     print 'writing gdx file: %s' % gdx_name
-    gams_utils.write_psse_to_gdx(p, os.path.normpath(gdx_name))
+    gams_utils.write_psse_to_gdx(p, os.path.normpath(GAMS_DIR + gdx_name))
 
     # test gams
     print 'running gams model: %s' % gms_name
@@ -74,7 +74,7 @@ def main():
 	inl = args[2]
 	raw = args[3]
 	rop = args[4]
-    	gdx = 'case.gdx'
+    gdx = 'case.gdx'
 	gms = 'run_greedy.gms'
 	
 	sol1_name = 'solution1.txt'
