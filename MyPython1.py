@@ -74,7 +74,7 @@ def main():
 	inl = args[2]
 	raw = args[3]
 	rop = args[4]
-    	gdx = GAMS_DIR + 'case.gdx'
+    	gdx = 'case.gdx'
 	gms = 'run_greedy.gms'
 	
 	sol1_name = 'solution1.txt'
