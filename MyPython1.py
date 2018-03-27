@@ -74,13 +74,22 @@ def main():
 	rop = args[2]
 	con= args[3]
 	inl = args[4]
-    	gdx_name = 'case.gdx'
-	gms_name = 'run_greedy.gms'
+    	gdx = GAMS_DIR + 'case.gdx'
+	gms = GAMS_DIR + 'run_greedy.gms'
 	
 	sol1_name = 'solution1.txt'
 	sol2_name = 'solution2.txt'
+	
+	print("raw: " + raw)
+	print("rop: " + rop)
+	print("con: " + con)
+	print("inl: " + inl)
+	print("gdx: " + gdx)
+	print("gms: " + gms)
+	print("sol1:" + sol1_name)
+	print("sol2:" + sol2_name)
 
-    	test(raw,rop,inl,con,sol1_name,sol2_name,GAMS_DIR + gdx_name,GAMS_DIR + gms_name)
+    	test(raw,rop,inl,con,sol1_name,sol2_name, gdx,gms)
 
 if __name__ == '__main__':
 	main()
