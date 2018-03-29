@@ -1,10 +1,52 @@
-import gams, os, sys
-print sys.path
-import psse, gams_utils
+'''
+MyPython1.py
 
-def test(raw_name=None, rop_name=None, inl_name=None, con_name=None, sol1_name=None, sol2_name=None, gdx_name=None, gms_name=None):
+Entry to Python/GAMS benchmark solver, timed portion.
+Syntax:
 
-    print '\ntesting Psse'
+$ python MyPython1.py RAW ROP INL CON
+
+or
+
+$ python MyPython1.py RAW ROP INL CON SOL1 SOL2
+'''
+
+# built in imports
+import os, sys, shutil
+
+# need to install
+import gams
+
+# GOComp modules - this should be visible on the GOComp evaluation system
+import psse
+
+# Python/GAMS benchmark modules
+sys.path.append(os.path.normpath('src/python')) # better way to make this visible?
+import gams_utils
+    
+def main():
+    
+    args = sys.argv
+
+    raw_name = args[1]
+    rop_name = args[2]
+    inl_name = args[3]
+    con_name = args[4]
+    if len(args) > 6:
+        sol1_name = args[5]
+        sol2_name = args[6]
+    else:
+        sol1_name = 'solution1.txt'
+        sol2_name = 'solution2.txt'
+    gdx_name = 'pscopf.gdx'
+    gms_name = 'run_greedy.gms'
+
+    gams_work_dir = 'src/gams/'
+    sol1_tmp = 'solution1.txt'
+    sol2_tmp = 'solution2.txt'
+
+    print '\nPython/GAMS benchmark solver'
+    print 'MyPython1.py'
     
     # read the psse files
     print 'reading psse files'
@@ -36,60 +78,26 @@ def test(raw_name=None, rop_name=None, inl_name=None, con_name=None, sol1_name=N
     print 'contingencies: %u' % len(p.con.contingencies)
 
     # write to gdx
-    print 'writing gdx file: %s' % gdx_name
-    gams_utils.write_psse_to_gdx(p, os.path.normpath(GAMS_DIR + gdx_name))
+    print 'writing gdx input file: %s' % gdx_name
+    gams_utils.write_psse_to_gdx(p, os.path.normpath(gams_work_dir + gdx_name))
 
     # test gams
     print 'running gams model: %s' % gms_name
     ws = gams.GamsWorkspace()
-    #ws.__init__(working_directory=os.getcwd())
-    ws.__init__(working_directory=(os.path.normpath(GAMS_DIR)))
+    ws.__init__(working_directory=(os.path.normpath(gams_work_dir)))
     job = ws.add_job_from_file(os.path.normpath(gms_name))
     opt = gams.GamsOptions(ws)
     opt.defines['ingdx'] = os.path.normpath(gdx_name)
-    opt.defines['solution1'] = os.path.normpath(sol1_name)
-    opt.defines['solution2'] = os.path.normpath(sol2_name)
-    opt.nlp = 'knitro'
-    complete = (
-        raw_name is not None and
-        rop_name is not None and
-        inl_name is not None and
-        con_name is not None and
-        gdx_name is not None and
-        gms_name is not None)
-    if complete:
-        job.run(gams_options=opt, output=sys.stdout)
+    opt.defines['solution1'] = os.path.normpath(sol1_tmp)
+    opt.defines['solution2'] = os.path.normpath(sol2_tmp)
+    job.run(gams_options=opt, output=sys.stdout)
 
+    # gams model writes the solution files
+    # might be better to return GAMS solution data to Python and have Python write the solution files
 
-
-def main():
-	import sys
-	
-	args = sys.argv
-
-	global GAMS_DIR
-	GAMS_DIR = 'gams/'
-	
-	con = args[1]
-	inl = args[2]
-	raw = args[3]
-	rop = args[4]
-    	gdx = 'case.gdx'
-	gms = 'run_greedy.gms'
-	
-	sol1_name = '../solution1.txt'
-	sol2_name = '../solution2.txt'
-	
-	print("raw: " + raw)
-	print("rop: " + rop)
-	print("con: " + con)
-	print("inl: " + inl)
-	print("gdx: " + gdx)
-	print("gms: " + gms)
-	print("sol1:" + sol1_name)
-	print("sol2:" + sol2_name)
-
-    	test(raw,rop,inl,con,sol1_name,sol2_name, gdx,gms)
+    # move solution files to desired location
+    shutil.move(os.path.normpath(gams_work_dir + sol1_tmp), os.path.normpath(sol1_name))
+    shutil.move(os.path.normpath(gams_work_dir + sol2_tmp), os.path.normpath(sol2_name))
 
 if __name__ == '__main__':
-	main()
+    main()
